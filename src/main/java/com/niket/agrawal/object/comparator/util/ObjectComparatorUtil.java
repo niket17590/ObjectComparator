@@ -13,6 +13,10 @@ import org.slf4j.LoggerFactory;
 
 public class ObjectComparatorUtil {
 
+	private ObjectComparatorUtil() {
+
+	}
+
 	static final Logger logger = LoggerFactory.getLogger(ObjectComparatorUtil.class);
 
 	static final Set<String> dtoPackages = new HashSet<>();
@@ -23,12 +27,15 @@ public class ObjectComparatorUtil {
 		dtoPackages.add("com.niket.agrawal.object.comparator.entity");
 	}
 
-	private ObjectComparatorUtil() {
-
-	}
-
 	public static List<String> compareAndGetDiff(Object firstObj, Object secondObj, String parentName) {
 		try {
+
+			// Check if both comparison objects are of same type
+			if (Objects.nonNull(firstObj) && Objects.nonNull(secondObj)
+					&& !(firstObj.getClass().getName().equals(secondObj.getClass().getName()))) {
+				return Collections.emptyList();
+			}
+
 			List<String> diffValFieldList = new ArrayList<>();
 			logger.info("Comparison started for Object: {}", firstObj.getClass().getSimpleName());
 

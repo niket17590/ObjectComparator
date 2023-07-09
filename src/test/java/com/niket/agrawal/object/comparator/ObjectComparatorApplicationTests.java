@@ -1,6 +1,7 @@
 package com.niket.agrawal.object.comparator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +20,7 @@ class ObjectComparatorApplicationTests {
 
 
 	@Test
-	void testComparison() {
+	void testSuccessComparison() {
 
 		MobileCompany oneplusCompany = MobileCompany.builder().setCompanyName("Oneplus").setStartYear(2000).build();
 		MobileCompany appleCompany = MobileCompany.builder().setCompanyName("Apple").setStartYear(1980)
@@ -40,4 +41,23 @@ class ObjectComparatorApplicationTests {
 		List<String> output = ObjectComparatorUtil.compareAndGetDiff(androidModel, appleModel, "");
 		assertEquals(7, output.size());
 	}
+
+	@Test
+	void testCompareDiffObjects() {
+		MobileCompany oneplusCompany = MobileCompany.builder().setCompanyName("Oneplus").setStartYear(2000).build();
+		MobileApplications androidApps = MobileApplications.builder().setAppNameList(Arrays.asList("App1", "App2"))
+				.setMobileCompany(oneplusCompany).build();
+		List<String> output = ObjectComparatorUtil.compareAndGetDiff(oneplusCompany, androidApps, "");
+		assertEquals(0, output.size());
+	}
+
+	@Test
+	void testOneNullFieldComparison() {
+		MobileCompany oneplusCompany = MobileCompany.builder().setCompanyName("Oneplus").setStartYear(2000).build();
+		MobileCompany appleCompany = MobileCompany.builder().setCompanyName("Apple").setStartYear(1980)
+				.setFounderName("Steve Jobs").build();
+		List<String> output = ObjectComparatorUtil.compareAndGetDiff(appleCompany, oneplusCompany, "");
+		assertTrue(output.contains("MobileCompany.founderName"));
+	}
+
 }
