@@ -57,8 +57,8 @@ public class ObjectComparatorUtil {
 					logger.info(
 							"{} is a user defined object, so calling same function again to compare independent object",
 							value1.getClass().getName());
-					diffValFieldList
-							.addAll(compareAndGetDiff(value1, value2, firstObj.getClass().getSimpleName() + "."));
+					diffValFieldList.addAll(compareAndGetDiff(value1, value2,
+							parentName.concat(firstObj.getClass().getSimpleName() + ".")));
 				} else if (!Objects.equals(value1, value2)) {
 					logger.info("{} field value is different in both objects", fieldName);
 					diffValFieldList.add(fieldName);
