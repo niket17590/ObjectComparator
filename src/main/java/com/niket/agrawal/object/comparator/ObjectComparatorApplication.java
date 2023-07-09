@@ -39,7 +39,7 @@ public class ObjectComparatorApplication {
 				.setOsSystem(OperatingSystem.APPLE).setVersion(1.0).setMobileApps(appleApps).build();
 
 		List<String> output = ObjectComparatorUtil.compareAndGetDiff(androidModel, appleModel, "");
-		logger.info(output.toString());
+		logger.info("Object Differences Output : {}", output);
 	}
 
 }
